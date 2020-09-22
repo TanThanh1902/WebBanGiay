@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3a4a11287ca34b2392b2dbb0298a03a6" Name="Diagram1">
+        <EntityTypeShape EntityType="DBBanGiayModel.CTHDTable" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBBanGiayModel.GIAYTable" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBBanGiayModel.HOADONTable" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBBanGiayModel.NGUOIDUNGTable" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBBanGiayModel.SIZEGIAYTable" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBBanGiayModel.THUONGHIEUTable" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBBanGiayModel.sysdiagram" Width="1.5" PointX="5.375" PointY="6.75" />
+        <AssociationConnector Association="DBBanGiayModel.FK_CTHDTable_GIAYTable" />
+        <AssociationConnector Association="DBBanGiayModel.FK_CTHDTable_HOADONTable" />
+        <AssociationConnector Association="DBBanGiayModel.FK_GIAYTable_THUONGHIEUTable" />
+        <AssociationConnector Association="DBBanGiayModel.FK_SIZEGIAYTable_GIAYTable" />
+        <AssociationConnector Association="DBBanGiayModel.FK_HOADONTable_NGUOIDUNGTable" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

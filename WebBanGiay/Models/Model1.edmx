@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBBanGiayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CTHDTable">
+          <Key>
+            <PropertyRef Name="MAHD" />
+            <PropertyRef Name="MAGIAY" />
+          </Key>
+          <Property Name="MAHD" Type="int" Nullable="false" />
+          <Property Name="MAGIAY" Type="int" Nullable="false" />
+          <Property Name="SOLUONG" Type="int" />
+          <Property Name="DONGIA" Type="money" />
+        </EntityType>
+        <EntityType Name="GIAYTable">
+          <Key>
+            <PropertyRef Name="MAGIAY" />
+          </Key>
+          <Property Name="MAGIAY" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENGIAY" Type="nvarchar" MaxLength="150" />
+          <Property Name="HINHANH" Type="nvarchar(max)" />
+          <Property Name="CHITIETSANPHAM" Type="nvarchar(max)" />
+          <Property Name="GIABAN" Type="money" />
+          <Property Name="KHUYENMAI" Type="int" />
+          <Property Name="GIOITINH" Type="int" />
+          <Property Name="NGAYTHEM" Type="datetime" />
+          <Property Name="MATHUONGHIEU" Type="int" />
+        </EntityType>
+        <EntityType Name="HOADONTable">
+          <Key>
+            <PropertyRef Name="MAHD" />
+          </Key>
+          <Property Name="MAHD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SOHD" Type="varchar" MaxLength="7" />
+          <Property Name="TONGTIEN" Type="money" />
+          <Property Name="NGAYBAN" Type="datetime" />
+          <Property Name="MAND" Type="int" />
+        </EntityType>
+        <EntityType Name="NGUOIDUNGTable">
+          <Key>
+            <PropertyRef Name="MAND" />
+          </Key>
+          <Property Name="MAND" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENND" Type="nvarchar" MaxLength="50" />
+          <Property Name="TAIKHOAN" Type="varchar" MaxLength="50" />
+          <Property Name="MATKHAU" Type="nvarchar" MaxLength="50" />
+          <Property Name="DIACHI" Type="nvarchar(max)" />
+          <Property Name="SDT" Type="varchar" MaxLength="11" />
+          <Property Name="TOKEN" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="SIZEGIAYTable">
+          <Key>
+            <PropertyRef Name="MASIZEGIAY" />
+          </Key>
+          <Property Name="MASIZEGIAY" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MAGIAY" Type="int" />
+          <Property Name="SOLUONG" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="THUONGHIEUTable">
+          <Key>
+            <PropertyRef Name="MATHUONGHIEU" />
+          </Key>
+          <Property Name="MATHUONGHIEU" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENTHUONGHIEU" Type="nvarchar" MaxLength="50" />
+          <Property Name="ANHTHUONGHIEU" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_CTHDTable_GIAYTable">
+          <End Role="GIAYTable" Type="Self.GIAYTable" Multiplicity="1" />
+          <End Role="CTHDTable" Type="Self.CTHDTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GIAYTable">
+              <PropertyRef Name="MAGIAY" />
+            </Principal>
+            <Dependent Role="CTHDTable">
+              <PropertyRef Name="MAGIAY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CTHDTable_HOADONTable">
+          <End Role="HOADONTable" Type="Self.HOADONTable" Multiplicity="1" />
+          <End Role="CTHDTable" Type="Self.CTHDTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOADONTable">
+              <PropertyRef Name="MAHD" />
+            </Principal>
+            <Dependent Role="CTHDTable">
+              <PropertyRef Name="MAHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GIAYTable_THUONGHIEUTable">
+          <End Role="THUONGHIEUTable" Type="Self.THUONGHIEUTable" Multiplicity="0..1" />
+          <End Role="GIAYTable" Type="Self.GIAYTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THUONGHIEUTable">
+              <PropertyRef Name="MATHUONGHIEU" />
+            </Principal>
+            <Dependent Role="GIAYTable">
+              <PropertyRef Name="MATHUONGHIEU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONTable_NGUOIDUNGTable">
+          <End Role="NGUOIDUNGTable" Type="Self.NGUOIDUNGTable" Multiplicity="0..1" />
+          <End Role="HOADONTable" Type="Self.HOADONTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NGUOIDUNGTable">
+              <PropertyRef Name="MAND" />
+            </Principal>
+            <Dependent Role="HOADONTable">
+              <PropertyRef Name="MAND" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIZEGIAYTable_GIAYTable">
+          <End Role="GIAYTable" Type="Self.GIAYTable" Multiplicity="0..1" />
+          <End Role="SIZEGIAYTable" Type="Self.SIZEGIAYTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GIAYTable">
+              <PropertyRef Name="MAGIAY" />
+            </Principal>
+            <Dependent Role="SIZEGIAYTable">
+              <PropertyRef Name="MAGIAY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBBanGiayModelStoreContainer">
+          <EntitySet Name="CTHDTable" EntityType="Self.CTHDTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GIAYTable" EntityType="Self.GIAYTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HOADONTable" EntityType="Self.HOADONTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NGUOIDUNGTable" EntityType="Self.NGUOIDUNGTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SIZEGIAYTable" EntityType="Self.SIZEGIAYTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="THUONGHIEUTable" EntityType="Self.THUONGHIEUTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CTHDTable_GIAYTable" Association="Self.FK_CTHDTable_GIAYTable">
+            <End Role="GIAYTable" EntitySet="GIAYTable" />
+            <End Role="CTHDTable" EntitySet="CTHDTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTHDTable_HOADONTable" Association="Self.FK_CTHDTable_HOADONTable">
+            <End Role="HOADONTable" EntitySet="HOADONTable" />
+            <End Role="CTHDTable" EntitySet="CTHDTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GIAYTable_THUONGHIEUTable" Association="Self.FK_GIAYTable_THUONGHIEUTable">
+            <End Role="THUONGHIEUTable" EntitySet="THUONGHIEUTable" />
+            <End Role="GIAYTable" EntitySet="GIAYTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADONTable_NGUOIDUNGTable" Association="Self.FK_HOADONTable_NGUOIDUNGTable">
+            <End Role="NGUOIDUNGTable" EntitySet="NGUOIDUNGTable" />
+            <End Role="HOADONTable" EntitySet="HOADONTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIZEGIAYTable_GIAYTable" Association="Self.FK_SIZEGIAYTable_GIAYTable">
+            <End Role="GIAYTable" EntitySet="GIAYTable" />
+            <End Role="SIZEGIAYTable" EntitySet="SIZEGIAYTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBBanGiayModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CTHDTable">
+          <Key>
+            <PropertyRef Name="MAHD" />
+            <PropertyRef Name="MAGIAY" />
+          </Key>
+          <Property Name="MAHD" Type="Int32" Nullable="false" />
+          <Property Name="MAGIAY" Type="Int32" Nullable="false" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <Property Name="DONGIA" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="GIAYTable" Relationship="DBBanGiayModel.FK_CTHDTable_GIAYTable" FromRole="CTHDTable" ToRole="GIAYTable" />
+          <NavigationProperty Name="HOADONTable" Relationship="DBBanGiayModel.FK_CTHDTable_HOADONTable" FromRole="CTHDTable" ToRole="HOADONTable" />
+        </EntityType>
+        <EntityType Name="GIAYTable">
+          <Key>
+            <PropertyRef Name="MAGIAY" />
+          </Key>
+          <Property Name="MAGIAY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENGIAY" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="HINHANH" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CHITIETSANPHAM" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GIABAN" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="KHUYENMAI" Type="Int32" />
+          <Property Name="GIOITINH" Type="Int32" />
+          <Property Name="NGAYTHEM" Type="DateTime" Precision="3" />
+          <Property Name="MATHUONGHIEU" Type="Int32" />
+          <NavigationProperty Name="CTHDTables" Relationship="DBBanGiayModel.FK_CTHDTable_GIAYTable" FromRole="GIAYTable" ToRole="CTHDTable" />
+          <NavigationProperty Name="THUONGHIEUTable" Relationship="DBBanGiayModel.FK_GIAYTable_THUONGHIEUTable" FromRole="GIAYTable" ToRole="THUONGHIEUTable" />
+          <NavigationProperty Name="SIZEGIAYTables" Relationship="DBBanGiayModel.FK_SIZEGIAYTable_GIAYTable" FromRole="GIAYTable" ToRole="SIZEGIAYTable" />
+        </EntityType>
+        <EntityType Name="HOADONTable">
+          <Key>
+            <PropertyRef Name="MAHD" />
+          </Key>
+          <Property Name="MAHD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SOHD" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="TONGTIEN" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="NGAYBAN" Type="DateTime" Precision="3" />
+          <Property Name="MAND" Type="Int32" />
+          <NavigationProperty Name="CTHDTables" Relationship="DBBanGiayModel.FK_CTHDTable_HOADONTable" FromRole="HOADONTable" ToRole="CTHDTable" />
+          <NavigationProperty Name="NGUOIDUNGTable" Relationship="DBBanGiayModel.FK_HOADONTable_NGUOIDUNGTable" FromRole="HOADONTable" ToRole="NGUOIDUNGTable" />
+        </EntityType>
+        <EntityType Name="NGUOIDUNGTable">
+          <Key>
+            <PropertyRef Name="MAND" />
+          </Key>
+          <Property Name="MAND" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENND" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TAIKHOAN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MATKHAU" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DIACHI" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="TOKEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HOADONTables" Relationship="DBBanGiayModel.FK_HOADONTable_NGUOIDUNGTable" FromRole="NGUOIDUNGTable" ToRole="HOADONTable" />
+        </EntityType>
+        <EntityType Name="SIZEGIAYTable">
+          <Key>
+            <PropertyRef Name="MASIZEGIAY" />
+          </Key>
+          <Property Name="MASIZEGIAY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MAGIAY" Type="Int32" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <NavigationProperty Name="GIAYTable" Relationship="DBBanGiayModel.FK_SIZEGIAYTable_GIAYTable" FromRole="SIZEGIAYTable" ToRole="GIAYTable" />
+        </EntityType>
+        <EntityType Name="THUONGHIEUTable">
+          <Key>
+            <PropertyRef Name="MATHUONGHIEU" />
+          </Key>
+          <Property Name="MATHUONGHIEU" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENTHUONGHIEU" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ANHTHUONGHIEU" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GIAYTables" Relationship="DBBanGiayModel.FK_GIAYTable_THUONGHIEUTable" FromRole="THUONGHIEUTable" ToRole="GIAYTable" />
+        </EntityType>
+        <EntityContainer Name="DBBanGiayEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CTHDTables" EntityType="Self.CTHDTable" />
+          <EntitySet Name="GIAYTables" EntityType="Self.GIAYTable" />
+          <EntitySet Name="HOADONTables" EntityType="Self.HOADONTable" />
+          <EntitySet Name="NGUOIDUNGTables" EntityType="Self.NGUOIDUNGTable" />
+          <EntitySet Name="SIZEGIAYTables" EntityType="Self.SIZEGIAYTable" />
+          <EntitySet Name="THUONGHIEUTables" EntityType="Self.THUONGHIEUTable" />
+          <EntitySet Name="sysdiagrams" EntityType="DBBanGiayModel.sysdiagram" />
+          <AssociationSet Name="FK_CTHDTable_GIAYTable" Association="DBBanGiayModel.FK_CTHDTable_GIAYTable">
+            <End Role="GIAYTable" EntitySet="GIAYTables" />
+            <End Role="CTHDTable" EntitySet="CTHDTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTHDTable_HOADONTable" Association="DBBanGiayModel.FK_CTHDTable_HOADONTable">
+            <End Role="HOADONTable" EntitySet="HOADONTables" />
+            <End Role="CTHDTable" EntitySet="CTHDTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GIAYTable_THUONGHIEUTable" Association="DBBanGiayModel.FK_GIAYTable_THUONGHIEUTable">
+            <End Role="THUONGHIEUTable" EntitySet="THUONGHIEUTables" />
+            <End Role="GIAYTable" EntitySet="GIAYTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIZEGIAYTable_GIAYTable" Association="DBBanGiayModel.FK_SIZEGIAYTable_GIAYTable">
+            <End Role="GIAYTable" EntitySet="GIAYTables" />
+            <End Role="SIZEGIAYTable" EntitySet="SIZEGIAYTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADONTable_NGUOIDUNGTable" Association="DBBanGiayModel.FK_HOADONTable_NGUOIDUNGTable">
+            <End Role="NGUOIDUNGTable" EntitySet="NGUOIDUNGTables" />
+            <End Role="HOADONTable" EntitySet="HOADONTables" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_CTHDTable_GIAYTable">
+          <End Type="DBBanGiayModel.GIAYTable" Role="GIAYTable" Multiplicity="1" />
+          <End Type="DBBanGiayModel.CTHDTable" Role="CTHDTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GIAYTable">
+              <PropertyRef Name="MAGIAY" />
+            </Principal>
+            <Dependent Role="CTHDTable">
+              <PropertyRef Name="MAGIAY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CTHDTable_HOADONTable">
+          <End Type="DBBanGiayModel.HOADONTable" Role="HOADONTable" Multiplicity="1" />
+          <End Type="DBBanGiayModel.CTHDTable" Role="CTHDTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOADONTable">
+              <PropertyRef Name="MAHD" />
+            </Principal>
+            <Dependent Role="CTHDTable">
+              <PropertyRef Name="MAHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GIAYTable_THUONGHIEUTable">
+          <End Type="DBBanGiayModel.THUONGHIEUTable" Role="THUONGHIEUTable" Multiplicity="0..1" />
+          <End Type="DBBanGiayModel.GIAYTable" Role="GIAYTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THUONGHIEUTable">
+              <PropertyRef Name="MATHUONGHIEU" />
+            </Principal>
+            <Dependent Role="GIAYTable">
+              <PropertyRef Name="MATHUONGHIEU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIZEGIAYTable_GIAYTable">
+          <End Type="DBBanGiayModel.GIAYTable" Role="GIAYTable" Multiplicity="0..1" />
+          <End Type="DBBanGiayModel.SIZEGIAYTable" Role="SIZEGIAYTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GIAYTable">
+              <PropertyRef Name="MAGIAY" />
+            </Principal>
+            <Dependent Role="SIZEGIAYTable">
+              <PropertyRef Name="MAGIAY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONTable_NGUOIDUNGTable">
+          <End Type="DBBanGiayModel.NGUOIDUNGTable" Role="NGUOIDUNGTable" Multiplicity="0..1" />
+          <End Type="DBBanGiayModel.HOADONTable" Role="HOADONTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NGUOIDUNGTable">
+              <PropertyRef Name="MAND" />
+            </Principal>
+            <Dependent Role="HOADONTable">
+              <PropertyRef Name="MAND" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBBanGiayModelStoreContainer" CdmEntityContainer="DBBanGiayEntities">
+          <EntitySetMapping Name="CTHDTables">
+            <EntityTypeMapping TypeName="DBBanGiayModel.CTHDTable">
+              <MappingFragment StoreEntitySet="CTHDTable">
+                <ScalarProperty Name="MAHD" ColumnName="MAHD" />
+                <ScalarProperty Name="MAGIAY" ColumnName="MAGIAY" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GIAYTables">
+            <EntityTypeMapping TypeName="DBBanGiayModel.GIAYTable">
+              <MappingFragment StoreEntitySet="GIAYTable">
+                <ScalarProperty Name="MATHUONGHIEU" ColumnName="MATHUONGHIEU" />
+                <ScalarProperty Name="MAGIAY" ColumnName="MAGIAY" />
+                <ScalarProperty Name="TENGIAY" ColumnName="TENGIAY" />
+                <ScalarProperty Name="HINHANH" ColumnName="HINHANH" />
+                <ScalarProperty Name="CHITIETSANPHAM" ColumnName="CHITIETSANPHAM" />
+                <ScalarProperty Name="GIABAN" ColumnName="GIABAN" />
+                <ScalarProperty Name="KHUYENMAI" ColumnName="KHUYENMAI" />
+                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+                <ScalarProperty Name="NGAYTHEM" ColumnName="NGAYTHEM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HOADONTables">
+            <EntityTypeMapping TypeName="DBBanGiayModel.HOADONTable">
+              <MappingFragment StoreEntitySet="HOADONTable">
+                <ScalarProperty Name="MAND" ColumnName="MAND" />
+                <ScalarProperty Name="MAHD" ColumnName="MAHD" />
+                <ScalarProperty Name="SOHD" ColumnName="SOHD" />
+                <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+                <ScalarProperty Name="NGAYBAN" ColumnName="NGAYBAN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NGUOIDUNGTables">
+            <EntityTypeMapping TypeName="DBBanGiayModel.NGUOIDUNGTable">
+              <MappingFragment StoreEntitySet="NGUOIDUNGTable">
+                <ScalarProperty Name="MAND" ColumnName="MAND" />
+                <ScalarProperty Name="TENND" ColumnName="TENND" />
+                <ScalarProperty Name="TAIKHOAN" ColumnName="TAIKHOAN" />
+                <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="TOKEN" ColumnName="TOKEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIZEGIAYTables">
+            <EntityTypeMapping TypeName="DBBanGiayModel.SIZEGIAYTable">
+              <MappingFragment StoreEntitySet="SIZEGIAYTable">
+                <ScalarProperty Name="MASIZEGIAY" ColumnName="MASIZEGIAY" />
+                <ScalarProperty Name="MAGIAY" ColumnName="MAGIAY" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="THUONGHIEUTables">
+            <EntityTypeMapping TypeName="DBBanGiayModel.THUONGHIEUTable">
+              <MappingFragment StoreEntitySet="THUONGHIEUTable">
+                <ScalarProperty Name="ANHTHUONGHIEU" ColumnName="ANHTHUONGHIEU" />
+                <ScalarProperty Name="MATHUONGHIEU" ColumnName="MATHUONGHIEU" />
+                <ScalarProperty Name="TENTHUONGHIEU" ColumnName="TENTHUONGHIEU" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBBanGiayModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
